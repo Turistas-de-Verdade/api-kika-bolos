@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+import br.com.turistas.controller.form.ProdutoForm;
 import br.com.turistas.controller.form.UsuarioForm;
+import br.com.turistas.dto.ProdutoDTO;
 import br.com.turistas.dto.UsuarioDTO;
 import br.com.turistas.service.CadastroService;
 
@@ -32,6 +34,15 @@ public class CadastroController {
       UriComponentsBuilder uriBuilder) {
 
     return cadastroService.cadastrarUsuario(form, uriBuilder);
+
+  }
+
+  @PostMapping("/produto")
+  @Transactional
+  public ResponseEntity<ProdutoDTO> postProdutos(@RequestBody @Valid ProdutoForm form,
+      UriComponentsBuilder uriBuilder) {
+
+    return cadastroService.cadastrarProduto(form, uriBuilder);
 
   }
 }

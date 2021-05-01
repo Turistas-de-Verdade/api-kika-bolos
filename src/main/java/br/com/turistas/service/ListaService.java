@@ -10,12 +10,16 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.turistas.dto.PerfilDTO;
+import br.com.turistas.dto.ProdutoDTO;
 import br.com.turistas.repository.PerfilRepository;
+import br.com.turistas.repository.ProdutoRepository;
 
 @Service
 public class ListaService {
 
 
+  @Autowired
+  ProdutoRepository produtoRepository;
 
   @Autowired
   PerfilRepository perfilRepository;
@@ -52,5 +56,36 @@ public class ListaService {
   }
 
 
+  public List<ProdutoDTO> listarProdutosPeloNome(String nomeProduto) {
+
+
+    if (nomeProduto == null || nomeProduto.isBlank()) {
+      return new ArrayList<ProdutoDTO>(null);
+
+    }
+
+    List<ProdutoDTO> listaProdutos = new ArrayList<ProdutoDTO>();
+
+    var produtos = produtoRepository.findByNomeContaining(nomeProduto).stream().map(p -> {
+      return new ProdutoDTO(p.getNome(), p.getPreco());
+    }).collect(Collectors.toList());
+
+    listaProdutos.addAll(produtos);
+
+    return listaProdutos;
+  }
+
+  public List<ProdutoDTO> listarProdutos() {
+
+    List<ProdutoDTO> listaProdutos = new ArrayList<ProdutoDTO>();
+
+    var todosProdutos = produtoRepository.findAll().stream().map(p -> {
+      return new ProdutoDTO(p.getNome(), p.getPreco());
+    }).collect(Collectors.toList());
+
+    listaProdutos.addAll(todosProdutos);
+
+    return listaProdutos;
+  }
 
 }
