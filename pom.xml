@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.turistas</groupId>
-	<artifactId>ecommerce</artifactId>
+	<artifactId>kika-bolos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ecommerce</name>
+	<name>kika-bolos</name>
 	<description>Gerenciamento de interface web com rest api</description>
 	<properties>
 		<java.version>11</java.version>
