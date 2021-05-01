@@ -29,6 +29,12 @@ public class ProdutoModel {
     this.preco = preco;
   }
 
+  public ProdutoModel(String nome, BigDecimal preco) {
+    super();
+    this.nome = nome;
+    this.preco = preco;
+  }
+
   public ProdutoModel() {
 
   }
@@ -56,6 +62,7 @@ public class ProdutoModel {
   public void setPreco(BigDecimal preco) {
     this.preco = preco;
   }
+
 
 }
 
