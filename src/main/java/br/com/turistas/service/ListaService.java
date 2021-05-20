@@ -9,8 +9,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.turistas.dto.DuvidaDTO;
+import br.com.turistas.dto.PedidoDTO;
 import br.com.turistas.dto.PerfilDTO;
 import br.com.turistas.dto.ProdutoDTO;
+import br.com.turistas.repository.DuvidaRepository;
+import br.com.turistas.repository.PedidosDTORepository;
 import br.com.turistas.repository.PerfilRepository;
 import br.com.turistas.repository.ProdutoRepository;
 
@@ -23,6 +27,12 @@ public class ListaService {
 
   @Autowired
   PerfilRepository perfilRepository;
+
+  @Autowired
+  DuvidaRepository duvidaRepository;
+
+  @Autowired
+  PedidosDTORepository pedidosDTORepository;
 
   public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
     Set<Object> seen = ConcurrentHashMap.newKeySet();
@@ -87,5 +97,38 @@ public class ListaService {
 
     return listaProdutos;
   }
+
+  public List<DuvidaDTO> listarDuvidas(String titulo) {
+
+    List<DuvidaDTO> listaDuvidas = new ArrayList<DuvidaDTO>();
+
+    if (titulo == null || titulo.isBlank()) {
+
+      var duvidas = duvidaRepository.findAll().stream().map(d -> {
+        return new DuvidaDTO(d.getNomeUsuario(), d.getTitulo(), d.getDescricao());
+      }).collect(Collectors.toList());
+
+      listaDuvidas.addAll(duvidas);
+    }
+
+    var duvidas = duvidaRepository.findByTituloContaining(titulo).stream().map(d -> {
+      return new DuvidaDTO(d.getNomeUsuario(), d.getTitulo(), d.getDescricao());
+    }).collect(Collectors.toList());
+
+    listaDuvidas.addAll(duvidas);
+
+    return listaDuvidas;
+  }
+
+  public List<PedidoDTO> listarPedido(String codUsuario) {
+
+    if (codUsuario == null || codUsuario.isBlank()) {
+      return new ArrayList<PedidoDTO>();
+    }
+
+    return pedidosDTORepository.getPedidos(Integer.parseInt(codUsuario));
+  }
+
+
 
 }
