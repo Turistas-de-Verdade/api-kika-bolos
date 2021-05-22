@@ -109,6 +109,8 @@ public class ListaService {
       }).collect(Collectors.toList());
 
       listaDuvidas.addAll(duvidas);
+
+      return listaDuvidas;
     }
 
     var duvidas = duvidaRepository.findByTituloContaining(titulo).stream().map(d -> {

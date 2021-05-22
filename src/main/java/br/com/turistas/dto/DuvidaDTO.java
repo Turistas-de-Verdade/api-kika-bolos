@@ -4,8 +4,8 @@ public class DuvidaDTO {
 
 
   String nomeUsuario;
-  String descricao;
   String titulo;
+  String descricao;
 
 
   public DuvidaDTO() {

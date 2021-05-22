@@ -52,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers(HttpMethod.GET, "/turistas-ecom/lista/produtos/**")
         .permitAll().antMatchers(HttpMethod.POST, "/turistas-ecom/cadastrar/usuario").permitAll()
         .antMatchers(HttpMethod.POST, "/turistas-ecom/cadastrar/duvida").permitAll()
+        .antMatchers(HttpMethod.GET, "/turistas-ecom/lista/duvidas").permitAll()
         .antMatchers(HttpMethod.POST, "/turistas-ecom/auth").permitAll().anyRequest()
         .authenticated().and().csrf().disable().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
